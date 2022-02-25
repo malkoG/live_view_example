@@ -1,0 +1,31 @@
+<h1>Show Feed</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.feed_show_path(@socket, :show, @feed)}>
+    <.live_component
+      module={LiveViewExampleWeb.FeedLive.FormComponent}
+      id={@feed.id}
+      title={@page_title}
+      action={@live_action}
+      feed={@feed}
+      return_to={Routes.feed_show_path(@socket, :show, @feed)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @feed.title %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @feed.content %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.feed_show_path(@socket, :edit, @feed), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.feed_index_path(@socket, :index) %></span>

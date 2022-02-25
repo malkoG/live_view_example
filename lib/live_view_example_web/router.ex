@@ -18,6 +18,13 @@ defmodule LiveViewExampleWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    live "/feeds", FeedLive.Index, :index
+    live "/feeds/new", FeedLive.Index, :new
+    live "/feeds/:id/edit", FeedLive.Index, :edit
+
+    live "/feeds/:id", FeedLive.Show, :show
+    live "/feeds/:id/show/edit", FeedLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
