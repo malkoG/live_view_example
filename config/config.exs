@@ -15,7 +15,19 @@ config :live_view_example, LiveViewExampleWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: LiveViewExampleWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: LiveViewExample.PubSub,
-  live_view: [signing_salt: "IEt6cVuL"]
+  live_view: [signing_salt: "IEt6cVuL"],
+  watchers: [
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    npx: [
+      "tailwindcss",
+      "--input=css/app.css",
+      "--output=../priv/static/assets/app.css",
+      "--postcss",
+      "--watch",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # Configures the mailer
 #
